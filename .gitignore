@@ -27,5 +27,5 @@ dist-ssr
 .env
 .env.*
 !.env.example
-data/
-server/data/
+/data/
+/server/data/
