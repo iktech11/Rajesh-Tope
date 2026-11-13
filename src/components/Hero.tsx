@@ -171,7 +171,7 @@ export const Hero: React.FC<Props> = ({ lang }) => {
                   <motion.img
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.4 }}
-                    src="/images/rajesh-tope-portrait.jpg"
+                    src={`${import.meta.env.BASE_URL}images/rajesh-tope-portrait.jpg`}
                     alt="Rajesh Tope - Official Portrait"
                     className="w-full h-full object-cover object-top"
                     loading="eager"

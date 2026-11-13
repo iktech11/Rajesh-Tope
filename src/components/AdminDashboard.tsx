@@ -91,29 +91,55 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
     }
   };
 
+  const verifyPasswordHash = async (inputPass: string): Promise<boolean> => {
+    try {
+      const enc = new TextEncoder();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(inputPass));
+      const hashHex = Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+      // Secure SHA-256 hash of the administrative credential (never exposes plaintext password in inspect/bundle)
+      const targetHash = '1f623f5591584cdb293c1832fcfac03d27a00a9081473a58ffc470fced71c0fe';
+      return hashHex === targetHash;
+    } catch {
+      return false;
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
     setIsLoggingIn(true);
 
     try {
+      // 1. Try server-side authentication if Express backend is running
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
-      });
+      }).catch(() => null);
 
-      if (res.ok) {
+      if (res && res.ok) {
         const data = await res.json();
         sessionStorage.setItem('admin_token', data.token);
         setIsAuthenticated(true);
         setPassword('');
         loadSubmissions(data.token);
-      } else {
-        const errData = await res.json().catch(() => ({}));
-        // Generic error message - does not reveal system specifics
-        setLoginError(errData.error || 'Invalid credentials');
+        return;
       }
+
+      // 2. Client-side cryptographic hash fallback (for static hosting like GitHub Pages)
+      const isValid = await verifyPasswordHash(password);
+      if (isValid) {
+        const staticToken = `ghp_auth_${Date.now()}`;
+        sessionStorage.setItem('admin_token', staticToken);
+        setIsAuthenticated(true);
+        setPassword('');
+        loadLocalSubmissions();
+        return;
+      }
+
+      setLoginError(lang === 'mr' ? 'चुकीचा पासवर्ड (Invalid credentials)' : 'Invalid credentials');
     } catch (err) {
       setLoginError('Unable to connect to authentication service.');
     } finally {
