@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Language, PublicConnectSubmission } from '../types';
 import { developmentProjects as defaultProjects } from '../data/politicalData';
+import { API_URLS } from '../config/api';
 import { 
   Lock, 
   X, 
@@ -49,7 +50,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
 
   const verifyToken = async (token: string) => {
     try {
-      const res = await fetch('/api/admin/verify', {
+      const res = await fetch(API_URLS.adminVerify, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -60,49 +61,24 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
         setIsAuthenticated(false);
       }
     } catch {
-      // Offline fallback
-      setIsAuthenticated(true);
-      loadLocalSubmissions();
+      sessionStorage.removeItem('admin_token');
+      setIsAuthenticated(false);
     }
   };
 
   const loadSubmissions = async (token: string) => {
     try {
-      const res = await fetch('/api/submissions', {
+      const res = await fetch(API_URLS.submissions, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
         const data = await res.json();
         setSubmissions(data.submissions || []);
       } else {
-        loadLocalSubmissions();
+        setSubmissions([]);
       }
     } catch {
-      loadLocalSubmissions();
-    }
-  };
-
-  const loadLocalSubmissions = () => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('rajesh_tope_submissions') || '[]');
-      setSubmissions(stored);
-    } catch {
       setSubmissions([]);
-    }
-  };
-
-  const verifyPasswordHash = async (inputPass: string): Promise<boolean> => {
-    try {
-      const enc = new TextEncoder();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(inputPass));
-      const hashHex = Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('');
-      // Secure SHA-256 hash of the administrative credential (never exposes plaintext password in inspect/bundle)
-      const targetHash = '1f623f5591584cdb293c1832fcfac03d27a00a9081473a58ffc470fced71c0fe';
-      return hashHex === targetHash;
-    } catch {
-      return false;
     }
   };
 
@@ -112,36 +88,28 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
     setIsLoggingIn(true);
 
     try {
-      // 1. Try server-side authentication if Express backend is running
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(API_URLS.adminLogin, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
-      }).catch(() => null);
+      });
 
-      if (res && res.ok) {
+      if (res.ok) {
         const data = await res.json();
         sessionStorage.setItem('admin_token', data.token);
         setIsAuthenticated(true);
         setPassword('');
         loadSubmissions(data.token);
-        return;
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        setLoginError(errData.error || 'Invalid credentials');
       }
-
-      // 2. Client-side cryptographic hash fallback (for static hosting like GitHub Pages)
-      const isValid = await verifyPasswordHash(password);
-      if (isValid) {
-        const staticToken = `ghp_auth_${Date.now()}`;
-        sessionStorage.setItem('admin_token', staticToken);
-        setIsAuthenticated(true);
-        setPassword('');
-        loadLocalSubmissions();
-        return;
-      }
-
-      setLoginError(lang === 'mr' ? 'चुकीचा पासवर्ड (Invalid credentials)' : 'Invalid credentials');
     } catch (err) {
-      setLoginError('Unable to connect to authentication service.');
+      setLoginError(
+        lang === 'mr'
+          ? 'सुरक्षित प्रमाणीकरण सर्व्हरशी संपर्क होऊ शकला नाही. (Express Backend API offline)'
+          : 'Unable to connect to the secure authentication backend API.'
+      );
     } finally {
       setIsLoggingIn(false);
     }
@@ -151,7 +119,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
     const token = sessionStorage.getItem('admin_token');
     if (token) {
       try {
-        await fetch('/api/admin/logout', {
+        await fetch(API_URLS.adminLogout, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -181,7 +149,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
     // Server-side update
     if (token) {
       try {
-        await fetch(`/api/submissions/${id}`, {
+        await fetch(`${API_URLS.submissions}/${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -190,14 +158,9 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
           body: JSON.stringify({ status: newStatus, adminNotes: notes })
         });
       } catch (err) {
-        console.warn('Server status update fallback:', err);
+        console.warn('Server status update failed:', err);
       }
     }
-
-    // Local sync fallback
-    try {
-      localStorage.setItem('rajesh_tope_submissions', JSON.stringify(updated));
-    } catch {}
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
@@ -222,7 +185,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
 
     setIsChangingPw(true);
     try {
-      const res = await fetch('/api/admin/change-password', {
+      const res = await fetch(API_URLS.adminChangePassword, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -232,7 +195,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
       });
 
       if (res.ok) {
-        setPwChangeStatus({ success: 'Admin password updated securely.' });
+        setPwChangeStatus({ success: 'Admin password updated securely in database.' });
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');

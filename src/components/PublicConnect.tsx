@@ -3,6 +3,7 @@ import type { Language } from '../types';
 import { translations } from '../data/translations';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { API_URLS } from '../config/api';
 import { 
   Send, 
   CheckCircle2, 
@@ -94,7 +95,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/submissions', {
+      const response = await fetch(API_URLS.submissions, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
