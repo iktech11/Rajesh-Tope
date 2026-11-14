@@ -17,7 +17,7 @@ export const Header: React.FC<Props> = ({ lang, onLanguageChange, onOpenAdmin })
 
   const t = translations[lang];
 
-  // News and Gallery permanently removed from navItems
+  // News, Gallery, and Public Activities permanently removed from navItems
   const navItems = [
     { id: 'home', label: t.nav.home, href: '#home' },
     { id: 'about', label: t.nav.about, href: '#about' },
@@ -25,7 +25,6 @@ export const Header: React.FC<Props> = ({ lang, onLanguageChange, onOpenAdmin })
     { id: 'ministerial', label: t.nav.ministerial, href: '#ministerial' },
     { id: 'ghansawangi', label: t.nav.ghansawangi, href: '#ghansawangi' },
     { id: 'work', label: t.nav.work, href: '#work' },
-    { id: 'activities', label: t.nav.activities, href: '#activities' },
     { id: 'connect', label: t.nav.connect, href: '#connect' },
     { id: 'contact', label: t.nav.contact, href: '#contact' },
   ];

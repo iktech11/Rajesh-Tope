@@ -8,7 +8,6 @@ import { PoliticalJourney } from './components/PoliticalJourney';
 import { MinisterialExperience } from './components/MinisterialExperience';
 import { GhansawangiConstituency } from './components/GhansawangiConstituency';
 import { DevelopmentWork } from './components/DevelopmentWork';
-import { PublicActivities } from './components/PublicActivities';
 import { PublicConnect } from './components/PublicConnect';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -61,7 +60,6 @@ export function App() {
         <MinisterialExperience lang={lang} />
         <GhansawangiConstituency lang={lang} />
         <DevelopmentWork lang={lang} />
-        <PublicActivities lang={lang} />
         <PublicConnect lang={lang} />
         <ContactSection lang={lang} />
       </main>
