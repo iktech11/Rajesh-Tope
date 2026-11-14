@@ -56,36 +56,58 @@ export const GhansawangiConstituency: React.FC<Props> = ({ lang }) => {
               </div>
             </div>
 
-            {/* Cooperative & Educational Foundations */}
+            {/* Cooperative & Educational Foundations with authentic background imagery */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Foundation 1: Matsyodari Shikshan Sanstha (MSS) */}
               <motion.div
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                className="bg-white rounded-xl p-5 border border-[#E7EAF0] shadow-sm hover:border-[#17243A]/30 transition-all"
+                className="relative rounded-2xl overflow-hidden border border-[#E7EAF0] shadow-sm hover:border-[#17243A]/30 transition-all min-h-[220px] flex flex-col justify-end p-5 group"
               >
-                <div className="w-9 h-9 rounded-lg bg-[#FAF5EE] text-[#C58B45] flex items-center justify-center mb-3">
-                  <GraduationCap className="w-5 h-5" />
+                {/* Background photo */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/matsyodari-college.jpg)` }}
+                />
+                {/* Gradient overlay for readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#17243A] via-[#17243A]/85 to-[#17243A]/50 group-hover:from-[#17243A]/95 transition-colors" />
+
+                <div className="relative z-10">
+                  <div className="w-9 h-9 rounded-lg bg-[#FAF5EE] text-[#C58B45] flex items-center justify-center mb-2.5 shadow-sm">
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-sm sm:text-base font-bold text-white mb-1.5 leading-snug">
+                    मत्स्योदरी शिक्षण संस्था (MSS)
+                  </h4>
+                  <p className="text-xs text-slate-200 leading-relaxed font-normal">
+                    {t.ghansawangi.matsyodariEdu}
+                  </p>
                 </div>
-                <h4 className="text-sm font-bold text-[#17243A] mb-1.5">
-                  मत्स्योदरी शिक्षण संस्था (MSS)
-                </h4>
-                <p className="text-xs text-[#667085] leading-relaxed">
-                  {t.ghansawangi.matsyodariEdu}
-                </p>
               </motion.div>
 
+              {/* Foundation 2: Samarth Sahakari Sakhar Karkhana */}
               <motion.div
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                className="bg-white rounded-xl p-5 border border-[#E7EAF0] shadow-sm hover:border-[#17243A]/30 transition-all"
+                className="relative rounded-2xl overflow-hidden border border-[#E7EAF0] shadow-sm hover:border-[#17243A]/30 transition-all min-h-[220px] flex flex-col justify-end p-5 group"
               >
-                <div className="w-9 h-9 rounded-lg bg-[#FAF5EE] text-[#C58B45] flex items-center justify-center mb-3">
-                  <Factory className="w-5 h-5" />
+                {/* Background photo */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/samarth-sugar-factory.jpg)` }}
+                />
+                {/* Gradient overlay for readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#17243A] via-[#17243A]/85 to-[#17243A]/50 group-hover:from-[#17243A]/95 transition-colors" />
+
+                <div className="relative z-10">
+                  <div className="w-9 h-9 rounded-lg bg-[#FAF5EE] text-[#C58B45] flex items-center justify-center mb-2.5 shadow-sm">
+                    <Factory className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-sm sm:text-base font-bold text-white mb-1.5 leading-snug">
+                    समर्थ सहकारी साखर कारखाना
+                  </h4>
+                  <p className="text-xs text-slate-200 leading-relaxed font-normal">
+                    {t.ghansawangi.samarthSugar}
+                  </p>
                 </div>
-                <h4 className="text-sm font-bold text-[#17243A] mb-1.5">
-                  समर्थ सहकारी साखर कारखाना
-                </h4>
-                <p className="text-xs text-[#667085] leading-relaxed">
-                  {t.ghansawangi.samarthSugar}
-                </p>
               </motion.div>
             </div>
           </motion.div>

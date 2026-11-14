@@ -40,25 +40,11 @@ export const Hero: React.FC<Props> = ({ lang }) => {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1"
           >
-            {/* Verified Credentials Badge with subtle shimmer */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF5EE] border border-[#EAD7BE] w-fit mb-3 sm:mb-4 relative overflow-hidden group shadow-subtle"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#C58B45] animate-pulse" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-wide text-[#A66E2E] uppercase font-sans">
-                {t.hero.verifiedProfile}
-              </span>
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-            </motion.div>
-
             {/* Main Name: Rajesh Tope */}
             <motion.h1 
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#17243A] leading-[1.15] mb-2 sm:mb-3"
             >
               {lang === 'mr' ? 'राजेश अंकुशराव टोपे' : lang === 'hi' ? 'राजेश अंकुशराव टोपे' : 'Rajesh Ankushrao Tope'}
@@ -188,11 +174,12 @@ export const Hero: React.FC<Props> = ({ lang }) => {
 
                 {/* Bottom caption */}
                 <div className="px-3.5 sm:px-4 py-2.5 bg-[#FFFFFF] border-t border-[#E7EAF0] flex items-center justify-between text-[11px] text-[#667085]">
-                  <span className="flex items-center gap-1.5 font-medium text-[#17243A]">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#C58B45]" />
-                    {lang === 'mr' ? 'प्रमाणित राजकीय माहिती' : 'Verified Political Record'}
+                  <span className="font-semibold text-[#17243A]">
+                    {lang === 'mr' ? 'घनसावंगी • जालना' : 'Ghansawangi • Jalna'}
                   </span>
-                  <span>Ghansawangi • Jalna</span>
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-[#A66E2E] bg-[#FAF5EE] px-2 py-0.5 rounded font-bold">
+                    Maharashtra
+                  </span>
                 </div>
               </div>
             </div>
