@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import type { Language, PublicConnectSubmission } from '../types';
 import { developmentProjects as defaultProjects } from '../data/politicalData';
 import { API_URLS } from '../config/api';
-import { 
-  Lock, 
-  X, 
-  Users, 
-  FolderGit2, 
-  Download, 
+import {
+  Lock,
+  X,
+  Users,
+  FolderGit2,
+  Download,
   LogOut,
   KeyRound,
   CheckCircle2,
@@ -123,7 +123,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` }
         });
-      } catch {}
+      } catch { }
     }
     sessionStorage.removeItem('admin_token');
     setIsAuthenticated(false);
@@ -133,7 +133,7 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
 
   const updateSubStatus = async (id: string, newStatus: any, notes?: string) => {
     const token = sessionStorage.getItem('admin_token');
-    
+
     // Optimistic UI update
     const updated = submissions.map(s => {
       if (s.id === id) {
@@ -293,8 +293,8 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
                 {lang === 'mr' ? 'प्रशासक सुरक्षा पडताळणी' : 'Authorized Access Verification'}
               </h4>
               <p className="text-xs text-[#667085] mt-1">
-                {lang === 'mr' 
-                  ? 'नागरिक निवेदने व्यवस्थापनासाठी प्रशासक पासवर्ड प्रविष्ट करा.' 
+                {lang === 'mr'
+                  ? 'नागरिक निवेदने व्यवस्थापनासाठी प्रशासक पासवर्ड प्रविष्ट करा.'
                   : 'Please enter authorized administrator credentials to manage citizen representations.'}
               </p>
             </div>
@@ -338,11 +338,10 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActiveTab('submissions')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${
-                    activeTab === 'submissions'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${activeTab === 'submissions'
                       ? 'bg-white text-[#17243A] shadow-sm'
                       : 'text-[#667085] hover:text-[#17243A]'
-                  }`}
+                    }`}
                 >
                   <Users className="w-3.5 h-3.5 text-[#C58B45]" />
                   <span>{lang === 'mr' ? 'नागरिक निवेदने' : 'Citizen Petitions'}</span>
@@ -353,11 +352,10 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
 
                 <button
                   onClick={() => setActiveTab('projects')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${
-                    activeTab === 'projects'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${activeTab === 'projects'
                       ? 'bg-white text-[#17243A] shadow-sm'
                       : 'text-[#667085] hover:text-[#17243A]'
-                  }`}
+                    }`}
                 >
                   <FolderGit2 className="w-3.5 h-3.5 text-[#C58B45]" />
                   <span>{lang === 'mr' ? 'विकासकामे' : 'Development Projects'}</span>
@@ -365,11 +363,10 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
 
                 <button
                   onClick={() => setActiveTab('password')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${
-                    activeTab === 'password'
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${activeTab === 'password'
                       ? 'bg-white text-[#17243A] shadow-sm'
                       : 'text-[#667085] hover:text-[#17243A]'
-                  }`}
+                    }`}
                 >
                   <KeyRound className="w-3.5 h-3.5 text-[#C58B45]" />
                   <span>Security & Password</span>
@@ -420,23 +417,21 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
                           <div
                             key={sub.id}
                             onClick={() => setSelectedSub(sub)}
-                            className={`p-3.5 rounded-xl border text-xs cursor-pointer transition-all ${
-                              selectedSub?.id === sub.id
+                            className={`p-3.5 rounded-xl border text-xs cursor-pointer transition-all ${selectedSub?.id === sub.id
                                 ? 'border-[#17243A] bg-[#FAF5EE]/50 shadow-sm'
                                 : 'border-[#E7EAF0] bg-white hover:bg-[#F7F8FA]'
-                            }`}
+                              }`}
                           >
                             <div className="flex items-center justify-between mb-1">
                               <span className="font-mono font-bold text-[#A66E2E]">
                                 {sub.refNo}
                               </span>
-                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                                sub.status === 'New'
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${sub.status === 'New'
                                   ? 'bg-blue-50 text-blue-700 border border-blue-200'
                                   : sub.status === 'Under Review'
-                                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                              }`}>
+                                    ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                                    : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                }`}>
                                 {sub.status}
                               </span>
                             </div>
@@ -508,11 +503,10 @@ export const AdminDashboard: React.FC<Props> = ({ isOpen, onClose, lang }) => {
                               <button
                                 key={st}
                                 onClick={() => updateSubStatus(selectedSub.id, st)}
-                                className={`py-1.5 px-2 rounded-lg text-[11px] font-bold border transition-colors ${
-                                  selectedSub.status === st
+                                className={`py-1.5 px-2 rounded-lg text-[11px] font-bold border transition-colors ${selectedSub.status === st
                                     ? 'bg-[#17243A] text-white border-[#17243A]'
                                     : 'bg-white text-[#667085] border-[#E7EAF0] hover:text-[#17243A]'
-                                }`}
+                                  }`}
                               >
                                 {st}
                               </button>

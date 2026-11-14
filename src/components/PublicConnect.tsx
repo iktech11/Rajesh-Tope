@@ -4,14 +4,14 @@ import { translations } from '../data/translations';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { API_URLS } from '../config/api';
-import { 
-  Send, 
-  CheckCircle2, 
-  FileText, 
-  User, 
-  Phone, 
-  MapPin, 
-  ShieldCheck, 
+import {
+  Send,
+  CheckCircle2,
+  FileText,
+  User,
+  Phone,
+  MapPin,
+  ShieldCheck,
   RotateCcw,
   Clock,
   AlertCircle
@@ -42,44 +42,44 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName = lang === 'mr' 
-        ? 'कृपया आपले पूर्ण नाव प्रविष्ट करा' 
-        : lang === 'hi' 
-        ? 'कृपया अपना पूरा नाम लिखें' 
-        : 'Full Name is required';
+      newErrors.fullName = lang === 'mr'
+        ? 'कृपया आपले पूर्ण नाव प्रविष्ट करा'
+        : lang === 'hi'
+          ? 'कृपया अपना पूरा नाम लिखें'
+          : 'Full Name is required';
     }
 
     const cleanMobile = formData.mobile.replace(/\D/g, '');
     if (!cleanMobile || cleanMobile.length !== 10) {
-      newErrors.mobile = lang === 'mr' 
-        ? '१० अंकी वैध मोबाईल नंबर आवश्यक आहे' 
-        : lang === 'hi' 
-        ? '१० अंकों का मान्य मोबाइल नंबर दर्ज करें' 
-        : 'Valid 10-digit mobile number is required';
+      newErrors.mobile = lang === 'mr'
+        ? '१० अंकी वैध मोबाईल नंबर आवश्यक आहे'
+        : lang === 'hi'
+          ? '१० अंकों का मान्य मोबाइल नंबर दर्ज करें'
+          : 'Valid 10-digit mobile number is required';
     }
 
     if (!formData.village.trim()) {
-      newErrors.village = lang === 'mr' 
-        ? 'कृपया गाव किंवा शहराचे नाव प्रविष्ट करा' 
-        : lang === 'hi' 
-        ? 'कृपया गांव या शहर का नाम लिखें' 
-        : 'Village / City is required';
+      newErrors.village = lang === 'mr'
+        ? 'कृपया गाव किंवा शहराचे नाव प्रविष्ट करा'
+        : lang === 'hi'
+          ? 'कृपया गांव या शहर का नाम लिखें'
+          : 'Village / City is required';
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = lang === 'mr' 
-        ? 'कृपया निवेदनासाठी विषय प्रविष्ट करा' 
-        : lang === 'hi' 
-        ? 'कृपया विषय लिखें' 
-        : 'Subject is required';
+      newErrors.subject = lang === 'mr'
+        ? 'कृपया निवेदनासाठी विषय प्रविष्ट करा'
+        : lang === 'hi'
+          ? 'कृपया विषय लिखें'
+          : 'Subject is required';
     }
 
     if (!formData.message.trim() || formData.message.trim().length < 10) {
-      newErrors.message = lang === 'mr' 
-        ? 'किमान १० अक्षरांचे सविस्तर निवेदन आवश्यक आहे' 
-        : lang === 'hi' 
-        ? 'कम से कम १० अक्षरों का विस्तृत विवरण आवश्यक है' 
-        : 'Detailed representation (min 10 characters) is required';
+      newErrors.message = lang === 'mr'
+        ? 'किमान १० अक्षरांचे सविस्तर निवेदन आवश्यक आहे'
+        : lang === 'hi'
+          ? 'कम से कम १० अक्षरों का विस्तृत विवरण आवश्यक है'
+          : 'Detailed representation (min 10 characters) is required';
     }
 
     setErrors(newErrors);
@@ -118,7 +118,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
       // Graceful fallback to client persistence if API server is not running
       console.warn('API error, saving submission locally:', err.message);
       const fallbackRef = `RT-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
-      
+
       try {
         const localSub = {
           id: `sub-${Date.now()}`,
@@ -133,7 +133,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
         };
         const existing = JSON.parse(localStorage.getItem('rajesh_tope_submissions') || '[]');
         localStorage.setItem('rajesh_tope_submissions', JSON.stringify([localSub, ...existing]));
-      } catch (storageErr) {}
+      } catch (storageErr) { }
 
       setSubmittedCode(fallbackRef);
     } finally {
@@ -145,7 +145,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
           origin: { y: 0.7 },
           colors: ['#17243A', '#C58B45', '#EAD7BE']
         });
-      } catch (e) {}
+      } catch (e) { }
     }
   };
 
@@ -165,7 +165,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
   return (
     <section id="connect" className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] border-b border-[#E7EAF0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF5EE] border border-[#EAD7BE] text-[#A66E2E] text-xs font-semibold mb-3">
@@ -183,7 +183,7 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
 
         {/* Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-          
+
           {/* Left Column: Guidelines & Transparency Context */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6">
             <div className="bg-[#F7F8FA] rounded-2xl p-5 sm:p-7 border border-[#E7EAF0]">
@@ -195,8 +195,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                 {lang === 'mr'
                   ? 'घनसावंगी, अंबड, जालना परिसरातील प्रत्येक नागरिकाचा प्रश्न महत्त्वाचा आहे. आपले निवेदन थेट जनसंपर्क कार्यालयाकडे पाठवले जाते आणि संबंधित विभागांशी पत्रव्यवहार केला जातो.'
                   : lang === 'hi'
-                  ? 'घनसावंगी एवं जालना क्षेत्र के प्रत्येक नागरिक का प्रश्न महत्वपूर्ण है। आपका आवेदन सीधे जनसंपर्क कार्यालय में दर्ज कर संबंधित विभागों से समन्वय किया जाता है।'
-                  : 'Every citizen’s voice from Ghansawangi, Ambad, and Jalna is valued. All submitted petitions are catalogued directly and pursued with relevant government authorities.'}
+                    ? 'घनसावंगी एवं जालना क्षेत्र के प्रत्येक नागरिक का प्रश्न महत्वपूर्ण है। आपका आवेदन सीधे जनसंपर्क कार्यालय में दर्ज कर संबंधित विभागों से समन्वय किया जाता है।'
+                    : 'Every citizen’s voice from Ghansawangi, Ambad, and Jalna is valued. All submitted petitions are catalogued directly and pursued with relevant government authorities.'}
               </p>
 
               <div className="space-y-2.5 pt-3.5 border-t border-[#E7EAF0] text-xs text-[#17243A]">
@@ -268,8 +268,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                       {lang === 'mr'
                         ? 'कृपया हा क्रमांक भविष्यातील संदर्भासाठी नोंदवून ठेवा.'
                         : lang === 'hi'
-                        ? 'कृपया भविष्य के संदर्भ हेतु यह क्रमांक सुरक्षित रखें।'
-                        : 'Kindly preserve this registration reference for future communication.'}
+                          ? 'कृपया भविष्य के संदर्भ हेतु यह क्रमांक सुरक्षित रखें।'
+                          : 'Kindly preserve this registration reference for future communication.'}
                     </p>
 
                     <button
@@ -301,9 +301,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                           placeholder={t.connect.form.fullNamePlaceholder}
-                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${
-                            errors.fullName ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
-                          }`}
+                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${errors.fullName ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
+                            }`}
                         />
                       </div>
                       {errors.fullName && <p className="text-[11px] text-red-500 mt-1">{errors.fullName}</p>}
@@ -323,9 +322,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                           value={formData.mobile}
                           onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
                           placeholder={t.connect.form.mobilePlaceholder}
-                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${
-                            errors.mobile ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
-                          }`}
+                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${errors.mobile ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
+                            }`}
                         />
                       </div>
                       {errors.mobile && <p className="text-[11px] text-red-500 mt-1">{errors.mobile}</p>}
@@ -343,9 +341,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                           value={formData.village}
                           onChange={(e) => setFormData({ ...formData, village: e.target.value })}
                           placeholder={t.connect.form.villagePlaceholder}
-                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${
-                            errors.village ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
-                          }`}
+                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${errors.village ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
+                            }`}
                         />
                       </div>
                       {errors.village && <p className="text-[11px] text-red-500 mt-1">{errors.village}</p>}
@@ -363,9 +360,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                           placeholder={t.connect.form.subjectPlaceholder}
-                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${
-                            errors.subject ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
-                          }`}
+                          className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors min-h-[44px] ${errors.subject ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
+                            }`}
                         />
                       </div>
                       {errors.subject && <p className="text-[11px] text-red-500 mt-1">{errors.subject}</p>}
@@ -381,9 +377,8 @@ export const PublicConnect: React.FC<Props> = ({ lang }) => {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder={t.connect.form.messagePlaceholder}
-                        className={`w-full p-3.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors leading-relaxed ${
-                          errors.message ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
-                        }`}
+                        className={`w-full p-3.5 rounded-xl border text-xs sm:text-sm text-[#17243A] placeholder-[#667085]/70 focus:outline-none transition-colors leading-relaxed ${errors.message ? 'border-red-500 bg-red-50/20' : 'border-[#E7EAF0] focus:border-[#17243A]'
+                          }`}
                       />
                       {errors.message && <p className="text-[11px] text-red-500 mt-1">{errors.message}</p>}
                     </div>

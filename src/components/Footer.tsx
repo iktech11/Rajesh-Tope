@@ -35,59 +35,15 @@ export const Footer: React.FC<Props> = ({ lang, onLanguageChange, onOpenAdmin })
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-white/10 items-center justify-between">
           
-          {/* Col 1: Identity & Credentials */}
-          <div className="lg:col-span-5 space-y-3.5">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-[#C58B45] flex items-center justify-center font-bold text-white font-sans shrink-0">
-                RT
-              </div>
-              <div>
-                <h3 className="text-base sm:text-lg font-bold tracking-tight text-white uppercase font-sans">
-                  {t.leaderName}
-                </h3>
-                <p className="text-xs text-[#C58B45] font-medium">
-                  {lang === 'mr' ? 'माजी मंत्री, महाराष्ट्र शासन' : 'Former Minister, Maharashtra'}
-                </p>
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md font-normal">
-              {t.footer.aboutSummary}
-            </p>
-
-            <div className="pt-1 flex items-center gap-2.5 text-xs text-slate-400">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#C58B45]" />
-              <span>Ghansawangi • Jalna • Maharashtra</span>
-            </div>
-          </div>
-
-          {/* Col 2: Quick Links */}
-          <div className="lg:col-span-4 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C58B45] font-mono">
-              {t.footer.quickLinks}
-            </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              {navLinks.map((link, idx) => (
-                <a
-                  key={idx}
-                  href={link.href}
-                  className="text-slate-300 hover:text-white hover:underline transition-colors py-1 min-h-[36px] flex items-center"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Col 3: Language & Admin */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Col: Language & Admin */}
+          <div className="lg:col-span-8 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#C58B45] font-mono">
               Language / भाषा
             </h4>
             
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {[
                 { code: 'mr', label: 'मराठी' },
                 { code: 'en', label: 'English' },
@@ -96,7 +52,7 @@ export const Footer: React.FC<Props> = ({ lang, onLanguageChange, onOpenAdmin })
                 <button
                   key={l.code}
                   onClick={() => onLanguageChange(l.code as any)}
-                  className={`px-3 py-2 rounded-lg text-xs font-medium border transition-colors min-h-[40px] flex items-center justify-center ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-colors min-h-[40px] flex items-center justify-center ${
                     lang === l.code
                       ? 'border-[#C58B45] bg-[#C58B45]/20 text-white font-bold'
                       : 'border-white/10 text-slate-300 hover:border-white/30'
@@ -106,16 +62,16 @@ export const Footer: React.FC<Props> = ({ lang, onLanguageChange, onOpenAdmin })
                 </button>
               ))}
             </div>
+          </div>
 
-            <div className="pt-2">
-              <button
-                onClick={onOpenAdmin}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-300 hover:text-white transition-colors min-h-[44px]"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C58B45]" />
-                <span>{lang === 'mr' ? 'प्रशासक पोर्टल लॉगइन' : 'Admin Portal Access'}</span>
-              </button>
-            </div>
+          <div className="lg:col-span-4 flex md:justify-end">
+            <button
+              onClick={onOpenAdmin}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-300 hover:text-white transition-colors min-h-[44px]"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C58B45]" />
+              <span>{lang === 'mr' ? 'प्रशासक पोर्टल लॉगइन' : 'Admin Portal Access'}</span>
+            </button>
           </div>
 
         </div>

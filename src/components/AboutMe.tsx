@@ -107,17 +107,29 @@ export const AboutMe: React.FC<Props> = ({ lang }) => {
               </dl>
             </div>
 
-            {/* Political Party / Association Box */}
-            <div className="bg-white rounded-2xl border border-[#E7EAF0] p-5 sm:p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#667085]">
-                {t.about.politicalBgLabel}
-              </span>
-              <div className="text-sm sm:text-base font-bold text-[#17243A] mt-0.5">
-                {t.about.politicalBgVal}
+            {/* Political Party / Association Box with Official Symbol */}
+            <div className="bg-white rounded-2xl border border-[#E7EAF0] p-5 sm:p-6 shadow-sm transition-all duration-300 hover:shadow-md flex items-center justify-between gap-4">
+              <div className="flex-1">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#667085]">
+                  {t.about.politicalBgLabel}
+                </span>
+                <div className="text-sm sm:text-base font-bold text-[#17243A] mt-0.5">
+                  {t.about.politicalBgVal}
+                </div>
+                <p className="text-xs text-[#667085] mt-1 leading-relaxed">
+                  {lang === 'mr' ? 'पुरोगामी विचार, सहकार चळवळ आणि शेतकरी सक्षमीकरणाचा पाया.' : 'Rooted in progressive cooperative philosophy and agrarian upliftment.'}
+                </p>
               </div>
-              <p className="text-xs text-[#667085] mt-1 leading-relaxed">
-                {lang === 'mr' ? 'पुरोगामी विचार, सहकार चळवळ आणि शेतकरी सक्षमीकरणाचा पाया.' : 'Rooted in progressive cooperative philosophy and agrarian upliftment.'}
-              </p>
+
+              {/* Official NCP (Sharadchandra Pawar) Symbol Logo */}
+              <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl p-1 bg-[#FAF5EE] border border-[#EAD7BE] shadow-subtle flex items-center justify-center overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/ncp-sp-symbol.jpg`}
+                  alt="NCP Sharadchandra Pawar Official Symbol"
+                  className="w-full h-full object-contain rounded-xl"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </motion.div>
 

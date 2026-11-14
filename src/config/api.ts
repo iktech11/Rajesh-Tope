@@ -14,3 +14,4 @@ export const API_URLS = {
   adminChangePassword: `${API_BASE}/api/admin/change-password`,
   adminLogout: `${API_BASE}/api/admin/logout`,
 };
+
